@@ -7,37 +7,22 @@
 # if more than one different version of OS we can use on the when variable the following command:
 # when: ansible_distribution in ["Debian", "Ubuntu"]
 
-  - name: update repository index
+   
+  - name: install apache2 and php package for Ubuntu
     apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
-    
-  - name: install apache2 package
-    apt:
-      name: apache2
+
+
+  - name: install apache2 and php package for CentOS
+    dnf:
+      name: 
+        - httpd
+        - php
       state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: add php support for apache
-    apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
-
-
-#  - name: update repository index
-#    dnf:
-#      update_cache: yes
-#    when: ansible_distribution == "CentOS"
-#
-#  - name: install apache2 package
-#    dnf:
-#      name: httpd
-#      state: latest
-#    when: ansible_distribution == "CentOS"
-#
-#  - name: add php support for apache
-#    dnf:
-#      name: php
-#      state: latest
-#    when: ansible_distribution == "CentOS"
+      update_cache: yes
+    when: ansible_distribution == "CentOS"

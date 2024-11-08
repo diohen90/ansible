@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+# if more than one different version of OS we can use on the when variable the following command:
+# when: ansible_distribution in ["Debian", "Ubuntu"]
+
+   
+  - name: install apache and php packages
+    package:
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
+      state: latest
+      update_cache: yes
